@@ -77,6 +77,15 @@ public class updateHelper
             return this;
         }
 
-
+        public updateHelper build()
+        {
+            return new updateHelper(context,onUpdateCheckListener);
+        }
+        public updateHelper check()
+        {
+            updateHelper updateHelper = build();
+            updateHelper.check();
+            return updateHelper;
+        }
     }
 }
