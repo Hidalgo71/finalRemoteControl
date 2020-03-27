@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "139948661750",
+    "firebase_url": "https://consoledesign-35b6f.firebaseio.com",
+    "project_id": "consoledesign-35b6f",
+    "storage_bucket": "consoledesign-35b6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139948661750:android:74f65060440e7b02b8c5d7",
+        "android_client_info": {
+          "package_name": "com.example.consoledesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139948661750-96apsekj53k30l4dff4bmprkb7ksaqlu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.consoledesign",
+            "certificate_hash": "cb0d8700b024767f9540bde8466d2c44ebddaf7f"
+          }
+        },
+        {
+          "client_id": "139948661750-nlrlnbni4le3grq7heu1tr15ueruo6lv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7KVnBZRsyYf8UW8JldkMIoUyTdJ8i7aE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139948661750-nlrlnbni4le3grq7heu1tr15ueruo6lv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
