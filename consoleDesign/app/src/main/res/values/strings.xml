@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">consoleDesign</string>
     <string name="button">Button</string>
+    <string name="slow">SLOW</string>
+    <string name="left">LEFT</string>
+    <string name="right">RIGHT</string>
+    <string name="up">UP</string>
 </resources>

@@ -6,12 +6,14 @@ import android.app.AlertDialog;
 import android.app.backup.BackupHelper;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements updateHelper.OnUpdateCheckListener
 {
+    private static final String TAG = "demoApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
             @Override
             public void onClick(View v)
             {
-
+                Log.i("My App", "Message");
+                Toast.makeText(getApplicationContext(),"Message", Toast.LENGTH_SHORT)
+                        .show();
             }
         });
 
