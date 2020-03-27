@@ -1,7 +1,6 @@
 package com.example.consoledesign;
 
 import android.app.Application;
-import android.app.SearchManager;
 
 import androidx.annotation.NonNull;
 
