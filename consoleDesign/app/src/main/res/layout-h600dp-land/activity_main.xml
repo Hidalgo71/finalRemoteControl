@@ -18,7 +18,7 @@
         android:visibility="visible"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnRight"
         app:layout_constraintEnd_toStartOf="@+id/btnRight"
-        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -26,14 +26,14 @@
         android:id="@+id/btnRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginLeft="152dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginLeft="188dp"
         android:text="@string/right"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.746" />
 
     <Button
         android:id="@+id/btnUp"
@@ -47,15 +47,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btnSlow"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.935" />
 
     <Button
         android:id="@+id/btnSlow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:layout_marginBottom="92dp"
         android:text="@string/slow"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
