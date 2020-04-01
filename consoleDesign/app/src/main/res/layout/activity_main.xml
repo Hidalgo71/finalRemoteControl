@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.759" />
 
     <Button
-        android:id="@+id/btnUp"
+        android:id="@+id/btnForward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -60,4 +60,15 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnBTCon"
+        android:layout_width="308dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/bluetooth_connection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
