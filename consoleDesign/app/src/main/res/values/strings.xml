@@ -6,4 +6,6 @@
     <string name="right">RIGHT</string>
     <string name="up">UP</string>
     <string name="bluetooth_connection">Bluetooth Connection</string>
+    <string name="vgn">vgn</string>
+    <string name="forward" />
 </resources>
