@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
 
             }
         });
-    
 
         //Forward Button - Long Press
         btnFrw.setOnTouchListener(new View.OnTouchListener()
@@ -319,6 +318,20 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         Intent i =new Intent(MainActivity.this,MainActivity.class);
         i.putExtra(EXTRA_ADDRESS,address);
         startActivity(i);
+    }
+
+    private void sendDataPairedDevice(String message, BluetoothDevice device){
+        byte[] toSend = message.getBytes();
+
+        try {
+            UUID appUUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+            BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(appUUID);
+            OutputStream mmOutStream = socket.getOutputStream();
+            mmOutStream.write(toSend);
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "Exception during write", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public boolean btConnect()
