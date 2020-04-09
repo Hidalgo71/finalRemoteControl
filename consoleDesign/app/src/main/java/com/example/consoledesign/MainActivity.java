@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
             }
         });*/
         Button btnBTCon = findViewById(R.id.btnBTCon);
+        Button btnReg = findViewById(R.id.btnRegister);
 
 
         //Forward Button - Long Press
