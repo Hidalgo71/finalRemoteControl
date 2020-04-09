@@ -1,36 +1,55 @@
 package com.example.consoledesign;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
+
+//import com.google.firebase.database.
 
 public class MainActivity extends AppCompatActivity implements updateHelper.OnUpdateCheckListener
 {
     private static final String TAG = "demoApp";
+    private static final String EXTRA_ADDRESS = "device_add";
     private final String DEVICE_ADDRESS = "XXX";                //Mac Address of bluetooth module
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+    private DatabaseReference databaseReference;
 
+    ListView listView;
+    ArrayList<String> list = new ArrayList<String>();
+
+    String address =null;
     private BluetoothDevice device;
     private BluetoothSocket socket;
     private OutputStream outputStream;
+    private BluetoothAdapter bluetoothAdapter;
+    BluetoothAdapter myBluetooth =null;
+    DatabaseReference reff;
+
 
     String command;                                             //Store value Transmitter to the bt module
+    private BluetoothDevice Device;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -84,8 +103,20 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
             }
         });*/
         Button btnBTCon = findViewById(R.id.btnBTCon);
-        Button btnReg = findViewById(R.id.btnRegister);
+        Button btnReg = findViewById(R.id.btnRec);
 
+        reff = FirebaseDatabase.getInstance().getReference().child("testReff");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+
+            }
+        });
+    
 
         //Forward Button - Long Press
         btnFrw.setOnTouchListener(new View.OnTouchListener()
@@ -276,6 +307,47 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         }
         return found;
     }
+    public void search(View v)
+    {
+        list.clear();
+        listView.setAdapter(null);
+        discover();
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+
+        for (BluetoothDevice bt : pairedDevices)
+        {
+            list.add(bt.getName()+ "\n" + bt.getAddress());
+        }
+        Toast.makeText(getApplicationContext(),"Showing Devices", Toast.LENGTH_SHORT)
+                .show();
+        if (pairedDevices.isEmpty())
+        {
+            Toast.makeText(getApplicationContext(),"No device Found", Toast.LENGTH_SHORT)
+            .show();
+        }
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+
+        listView.setAdapter(arrayAdapter);
+        //listView.setOnClickListener((View.OnClickListener) selectDevice);
+    }
+
+
+    public void discover()
+    {
+        bluetoothAdapter.cancelDiscovery();
+        Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        startActivityForResult(getVisible,0);
+    }
+
+//    public AdapterView.OnItemClickListener selectDevice = (parent, view, position, id)
+//    {
+//        String info = ((TextView)view).getText().toString();
+//        String address = info.substring(info.length()-17);
+//
+//        Intent i =new Intent(MainActivity.this,MainActivity.class);
+//        i.putExtra(EXTRA_ADDRESS,address);
+//        startActivity(i);
+//    }
 
     public boolean btConnect()
     {
@@ -334,4 +406,6 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
                 }).create();
         alertDialog.show();
     }
+
+
 }

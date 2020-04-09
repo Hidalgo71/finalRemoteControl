@@ -8,4 +8,5 @@
     <string name="bluetooth_connection">Bluetooth Connection</string>
     <string name="vgn">vgn</string>
     <string name="forward" />
+    <string name="record">record</string>
 </resources>
