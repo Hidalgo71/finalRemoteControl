@@ -10,9 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
     private static final String EXTRA_ADDRESS = "device_add";
     private final String DEVICE_ADDRESS = "XXX";                //Mac Address of bluetooth module
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-    private DatabaseReference databaseReference;
-
+    private static final int REQUEST_ENABLE_BT = 1;
     ListView listView;
+    TextView textView;
     ArrayList<String> list = new ArrayList<String>();
 
     String address =null;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private BluetoothAdapter bluetoothAdapter;
-    BluetoothAdapter myBluetooth =null;
+    BluetoothAdapter listBTAdapter;
     DatabaseReference reff;
 
 
@@ -72,41 +74,19 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
                         .show();
             }
         });*/
-        Button btnRight = findViewById(R.id.btnRight);      /*        btnRight.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("My Right", "Right L");
-                Toast.makeText(getApplicationContext(),"Right", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        })*/;
-        Button btnFrw = findViewById(R.id.btnForward);      /*        btnUp.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("My Up", "Up L");
-                Toast.makeText(getApplicationContext(),"Up", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });*/
-        Button btnSlow = findViewById(R.id.btnSlow);        /*        btnSlow.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("My Up", "slow");
-                Toast.makeText(getApplicationContext(),"Up", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });*/
+        Button btnRight = findViewById(R.id.btnRight);
+        Button btnFrw = findViewById(R.id.btnForward);
+        Button btnSlow = findViewById(R.id.btnSlow);
         Button btnBTCon = findViewById(R.id.btnBTCon);
         Button btnReg = findViewById(R.id.btnRec);
 
         reff = FirebaseDatabase.getInstance().getReference().child("testReff");
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        TextView textView1 = (TextView) findViewById(R.id.textView1);
+        listBTAdapter = BluetoothAdapter.getDefaultAdapter();
+        textView1.append("\nAdapter: " + listBTAdapter);
+
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,8 +193,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
             }
         });
 
-        btnRight.setOnTouchListener(new View.OnTouchListener()
-        {
+        btnRight.setOnTouchListener(new View.OnTouchListener()        {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
@@ -262,24 +241,19 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
 
     }
 
-    public boolean btInit()
-    {
+    public boolean btInit()    {
         boolean found = false;
 
         BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if (btAdapter == null)                                      //Checking device supporting bluetooth
-        {
+        if (btAdapter == null){                                     //Checking device supporting bluetooth
             Toast.makeText(getApplicationContext(), "No BT Support!", Toast.LENGTH_SHORT)
                     .show();
         }
-        if (!btAdapter.isEnabled())
-        {
+        if (!btAdapter.isEnabled())        {
             Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableAdapter, 0);
-
-            try
-            {
+            try            {
                 Thread.sleep(1000);
             } catch (InterruptedException e)
             {
@@ -307,8 +281,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         }
         return found;
     }
-    public void search(View v)
-    {
+    public void search(View v)    {
         list.clear();
         listView.setAdapter(null);
         discover();
@@ -328,26 +301,25 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 
         listView.setAdapter(arrayAdapter);
-        //listView.setOnClickListener((View.OnClickListener) selectDevice);
+        listView.setOnClickListener((View.OnClickListener) selectDevice);
     }
 
 
-    public void discover()
-    {
+    public void discover()    {
         bluetoothAdapter.cancelDiscovery();
         Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         startActivityForResult(getVisible,0);
     }
 
-//    public AdapterView.OnItemClickListener selectDevice = (parent, view, position, id)
-//    {
-//        String info = ((TextView)view).getText().toString();
-//        String address = info.substring(info.length()-17);
-//
-//        Intent i =new Intent(MainActivity.this,MainActivity.class);
-//        i.putExtra(EXTRA_ADDRESS,address);
-//        startActivity(i);
-//    }
+    public AdapterView.OnItemClickListener selectDevice = (parent, view, position, id)
+    {
+        String info = ((TextView)view).getText().toString();
+        String address = info.substring(info.length()-17);
+
+        Intent i =new Intent(MainActivity.this,MainActivity.class);
+        i.putExtra(EXTRA_ADDRESS,address);
+        startActivity(i);
+    }
 
     public boolean btConnect()
     {
@@ -382,6 +354,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
     {
         super.onStart();
     }
+
 
 
     @Override
