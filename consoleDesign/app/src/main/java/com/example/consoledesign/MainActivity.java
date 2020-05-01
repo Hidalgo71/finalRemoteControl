@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -64,28 +62,20 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
                 .onUpdateCheck(this)
                 .check();
 
-        Button btnLeft = findViewById(R.id.btnLeft);        /*        btnLeft.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("My Left", "Message");
-                Toast.makeText(getApplicationContext(),"Left", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });*/
+        Button btnLeft = findViewById(R.id.btnLeft);
         Button btnRight = findViewById(R.id.btnRight);
         Button btnFrw = findViewById(R.id.btnForward);
         Button btnSlow = findViewById(R.id.btnSlow);
         Button btnBTCon = findViewById(R.id.btnBTCon);
         Button btnReg = findViewById(R.id.btnRec);
+        Button btnMap = findViewById(R.id.btnMap);
 
-        reff = FirebaseDatabase.getInstance().getReference().child("testReff");
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//        reff = FirebaseDatabase.getInstance().getReference().child("testReff");
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
-        listBTAdapter = BluetoothAdapter.getDefaultAdapter();
-        textView1.append("\nAdapter: " + listBTAdapter);
+//        TextView textView1 = (TextView) findViewById(R.id.textView1);
+//        listBTAdapter = BluetoothAdapter.getDefaultAdapter();
+//        textView1.append("\nAdapter: " + listBTAdapter);
 
 
         btnReg.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
 
             }
         });
+
 
         //Forward Button - Long Press
         btnFrw.setOnTouchListener(new View.OnTouchListener()
@@ -300,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 
         listView.setAdapter(arrayAdapter);
-        listView.setOnClickListener((View.OnClickListener) selectDevice);
+//        listView.setOnClickListener((View.OnClickListener) selectDevice);
     }
 
 
@@ -310,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         startActivityForResult(getVisible,0);
     }
 
-    public AdapterView.OnItemClickListener selectDevice = (parent, view, position, id)
+    /*public AdapterView.OnItemClickListener selectDevice = (parent, view, position, id)
     {
         String info = ((TextView)view).getText().toString();
         String address = info.substring(info.length()-17);
@@ -318,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements updateHelper.OnUp
         Intent i =new Intent(MainActivity.this,MainActivity.class);
         i.putExtra(EXTRA_ADDRESS,address);
         startActivity(i);
-    }
+    }*/
 
     private void sendDataPairedDevice(String message, BluetoothDevice device){
         byte[] toSend = message.getBytes();
